@@ -32,6 +32,12 @@ const agent = snmp.createAgent(AgentOptions, function (error, data) {
     if (data) console.log(data);
 });
 
+const mib = agent.getMib();
+mib.registerProviders(providers);
+mib.setScalarValue("deviceName", "TestDevice");
+mib.setScalarValue("deviceStatus", 2);
+mib.setScalarValue("temperatureCelsius", 50);
+
 const authorizer = agent.getAuthorizer();
 authorizer.addCommunity("public");
 authorizer.addCommunity("private");
