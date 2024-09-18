@@ -42,4 +42,19 @@ const authorizer = agent.getAuthorizer();
 authorizer.addCommunity("public");
 authorizer.addCommunity("private");
 
+const user = {
+    name: "TestUser",
+    level: snmp.SecurityLevel.noAuthNoPriv,
+    authProtocol: snmp.AuthProtocols.sha,
+    authKey: "TestAuthKey",
+    privProtocol: snmp.PrivProtocols.des,
+    privKey: "TestPrivKey"
+};
+authorizer.addUser(user);
+
+const acm = authorizer.getAccessControlModel();
+acm.setCommunityAccess("public", snmp.AccessLevel.ReadOnly);
+acm.setCommunityAccess("private", snmp.AccessLevel.ReadWrite);
+acm.setUserAccess(user.name, snmp.AccessLevel.ReadWrite);
+
 console.log("SNMP agent is listening on port " + PORT)
