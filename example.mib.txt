@@ -1,0 +1,113 @@
+EXAMPLE-MIB DEFINITIONS ::= BEGIN
+
+
+
+  IMPORTS
+
+    MODULE-IDENTITY, OBJECT-TYPE, Integer32, enterprises
+
+        FROM SNMPv2-SMI
+
+    DisplayString
+
+        FROM SNMPv2-TC;
+
+
+
+-- Module identity
+
+exampleMIB MODULE-IDENTITY
+
+    LAST-UPDATED "202408140000Z"
+
+    ORGANIZATION "Example Organization"
+
+    CONTACT-INFO
+
+        "Contact: Admin
+
+         Email: admin@example.com"
+
+    DESCRIPTION
+
+        "This MIB module contains managed objects for a simple network device."
+
+    REVISION "202408140000Z"
+
+    DESCRIPTION
+
+        "Initial version of this MIB module."
+
+    ::= { enterprises 9999 }
+
+
+
+-- Root for all objects in this MIB
+
+exampleDevice OBJECT IDENTIFIER ::= { exampleMIB 1 }
+
+
+
+-- Managed objects
+
+
+
+deviceName OBJECT-TYPE
+
+    SYNTAX      OCTET STRING (SIZE(0..255))
+
+    MAX-ACCESS  read-write
+
+    STATUS      current
+
+    DESCRIPTION
+
+        "The name of the device."
+
+    ::= { exampleDevice 1 }
+
+
+
+deviceStatus OBJECT-TYPE
+
+    SYNTAX      INTEGER {
+
+                    operational(1),
+
+                    maintenance(2),
+
+                    failed(3)
+
+                }
+
+    MAX-ACCESS  read-only
+
+    STATUS      current
+
+    DESCRIPTION
+
+        "The current status of the device."
+
+    ::= { exampleDevice 2 }
+
+
+
+temperatureCelsius OBJECT-TYPE
+
+    SYNTAX      Integer32 (-50..100)
+
+    UNITS       "degrees Celsius"
+
+    MAX-ACCESS  read-only
+
+    STATUS      current
+
+    DESCRIPTION
+
+        "The current temperature of the device in degrees Celsius."
+
+    ::= { exampleDevice 3 }
+
+
+
+END
