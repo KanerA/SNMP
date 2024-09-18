@@ -1,0 +1,15 @@
+{
+  "name": "snmp",
+  "version": "1.0.0",
+  "description": "Learning the mechanics of snmp agents and NMSs and V3",
+  "main": "index.js",
+  "scripts": {
+    "start:agent": "node --openssl-legacy-provider ./agentSimulator/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "net-snmp": "^3.15.0"
+  }
+}
