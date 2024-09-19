@@ -11,19 +11,18 @@ const PORT = 3001;
 //  ROUTES - get, set, health
 
 app.get('/', async (req, res) => {
-    if (!req.body) return res.sendStatus(400);
-    const { oids } = req.body;
+    if (!req.query) return res.sendStatus(400);
+    const { oids } = req.query;
+    if (!oids?.length) return res.sendStatus(400);
     const results = await getDataFromAgent(oids);
-    res.json(results)
-    // use file v3Simulator
+    res.json(results);
 });
 
 app.post('/', async (req, res) => {
     if (!req.body) return res.sendStatus(400);
     const { data } = req.body;
     const results = await setDataOnAgent(data);
-    res.json(results)
-    // use file v3SetSimulator
+    res.json(results);
 });
 
 app.get('/health', (req, res) => {
