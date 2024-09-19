@@ -7,12 +7,14 @@
     "start:agent": "node --openssl-legacy-provider ./agentSimulator/index.js",
     "test:NMS": "node --openssl-legacy-provider ./agentSimulator/testFiles/nmsSimulator.js",
     "test:v3Get": "node --openssl-legacy-provider ./agentSimulator/testFiles/v3Simulator.js",
-    "test:v3Set": "node --openssl-legacy-provider ./agentSimulator/testFiles/v3SetSimulator.js"
+    "test:v3Set": "node --openssl-legacy-provider ./agentSimulator/testFiles/v3SetSimulator.js",
+    "start:server": "node ./server"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.3",
     "express": "^4.21.0",
     "net-snmp": "^3.15.0"
   }
