@@ -7,8 +7,7 @@ const sessionGet = (oids, session) => {
             };
             const bufferToString = varbinds.map(val => ({ ...val, value: val.value.toString() }));
             console.log("Varbinds received from agent: ", { bufferToString, time: new Date() });
-            tempRes = bufferToString;
-            resolve(tempRes)
+            resolve(bufferToString)
             session.close();
         })
     })
