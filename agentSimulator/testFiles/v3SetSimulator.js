@@ -1,7 +1,11 @@
 const snmp = require("net-snmp");
 
-const testOIDs = [
-    "1.3.6.1.4.1.9999.1.1.0"
+const testVarbinds = [
+    {
+        oid: "1.3.6.1.4.1.9999.1.1.0",
+        type: snmp.ObjectType.OctetString,
+        value: "Samael"
+    }
 ];
 
 const options = {
@@ -28,9 +32,17 @@ const user = {
 
 const session = snmp.createV3Session("127.0.0.1", user, options);
 
-session.get(testOIDs, (error, varbinds) => {
+session.set(testVarbinds, (error, varbinds) => {
     if (error) return console.log("an error as occured ", error);
-    const bufferToString = varbinds.map(val => ({ ...val, value: val.value.toString() }));
-    console.log("Varbinds received from agent: ", { bufferToString, time: new Date() });
+
+    for (var i = 0; i < varbinds.length; i++) {
+        if (snmp.isVarbindError(varbinds[i])) {
+            console.error(snmp.varbindError(varbinds[i]));
+        }
+        else {
+            console.log(varbinds[i].oid + "|" + varbinds[i].value);
+        }
+    }
+
     session.close();
 })
