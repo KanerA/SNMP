@@ -25,6 +25,10 @@ app.post('/', async (req, res) => {
     res.json(results);
 });
 
+app.get('/all', async (req, res) => {
+
+});
+
 app.get('/health', (req, res) => {
     res.sendStatus(200);
 });

@@ -32,7 +32,7 @@ const getDataFromAgent = (oids) => {
 
 const setDataOnAgent = (data) => {
     const session = snmp.createV3Session("127.0.0.1", v3user, v3options);
-    return sessionSet(data, session, snmp.isVarbindError, snmp.varbindError)
+    return sessionSet(data, session)
         .then(response => response)
         .catch(error => error);
 }
