@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start:agent": "node --openssl-legacy-provider ./agentSimulator/index.js",
-    "test:NMS": "node --openssl-legacy-provider ./agentSimulator/testFiles/nmsSimulator.js"
+    "test:NMS": "node --openssl-legacy-provider ./agentSimulator/testFiles/nmsSimulator.js",
+    "test:v3": "node --openssl-legacy-provider ./agentSimulator/testFiles/v3Simulator.js"
   },
   "keywords": [],
   "author": "",
