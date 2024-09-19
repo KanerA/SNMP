@@ -1,7 +1,8 @@
 const snmp = require("net-snmp");
+const { sessionGet } = require("../../utils/v3SessionFunctions");
 
 const testOIDs = [
-    "1.3.6.1.4.1.9999.1.1.0"
+    "1.3.6.1.4.1.9999.1.0"
 ];
 
 const options = {
@@ -27,10 +28,4 @@ const user = {
 };
 
 const session = snmp.createV3Session("127.0.0.1", user, options);
-
-session.get(testOIDs, (error, varbinds) => {
-    if (error) return console.log("an error as occured ", error);
-    const bufferToString = varbinds.map(val => ({ ...val, value: val.value.toString() }));
-    console.log("Varbinds received from agent: ", { bufferToString, time: new Date() });
-    session.close();
-})
+sessionGet(testOIDs, session).then(val => console.log(val));

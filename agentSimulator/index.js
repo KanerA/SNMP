@@ -44,7 +44,7 @@ authorizer.addCommunity("private");
 
 const user = {
     name: "TestUser",
-    level: snmp.SecurityLevel.noAuthNoPriv,
+    level: snmp.SecurityLevel.AuthPriv,
     authProtocol: snmp.AuthProtocols.sha,
     authKey: "TestAuthKey",
     privProtocol: snmp.PrivProtocols.des,
