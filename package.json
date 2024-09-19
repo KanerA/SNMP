@@ -4,7 +4,8 @@
   "description": "Learning the mechanics of snmp agents and NMSs and V3",
   "main": "index.js",
   "scripts": {
-    "start:agent": "node --openssl-legacy-provider ./agentSimulator/index.js"
+    "start:agent": "node --openssl-legacy-provider ./agentSimulator/index.js",
+    "test:NMS": "node --openssl-legacy-provider ./agentSimulator/testFiles/nmsSimulator.js"
   },
   "keywords": [],
   "author": "",
