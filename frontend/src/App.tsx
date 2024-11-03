@@ -32,7 +32,8 @@ function App() {
       <div id="devicesGallery">
         <div className="deviceDisplayBox">
           {
-            deviceFields?.map((device, index) => <DeviceFieldLine key={`prop-${index}`}
+            deviceFields?.map((device, index) => <DeviceFieldLine
+              key={`prop-${index}`}
               title={device.oid}
               value={device.value}
             />)
