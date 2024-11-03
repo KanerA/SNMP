@@ -1,5 +1,5 @@
 const snmp = require("net-snmp");
-const { sessionGet, sessionSet } = require("../utils/v3SessionFunctions");
+const { sessionGet, sessionSet, sessionGetBulk } = require("../utils/v3SessionFunctions");
 
 const v3options = {
     port: 161,
@@ -30,6 +30,13 @@ const getDataFromAgent = (oids) => {
         .catch(error => error);
 };
 
+const getBulkDataFromAgent = (oids) => {
+    const session = snmp.createV3Session("127.0.0.1", v3user, v3options);
+    return sessionGetBulk(oids, session)
+        .then(response => response)
+        .catch(error => error);
+};
+
 const setDataOnAgent = (data) => {
     const session = snmp.createV3Session("127.0.0.1", v3user, v3options);
     return sessionSet(data, session)
@@ -41,5 +48,6 @@ module.exports = {
     v3user,
     v3options,
     getDataFromAgent,
-    setDataOnAgent
+    setDataOnAgent,
+    getBulkDataFromAgent
 }

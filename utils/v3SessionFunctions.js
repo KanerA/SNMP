@@ -7,7 +7,6 @@ const sessionGet = (oids, session) => {
                 console.log("an error has occured ", error);
                 return reject(error);
             };
-            console.log(varbinds)
             const bufferToString = varbinds.map(val => ({ ...val, value: val.value.toString() }));
             console.log("Varbinds received from agent: ", { bufferToString, time: new Date() });
             resolve(bufferToString)
@@ -40,12 +39,11 @@ const sessionSet = (varbinds, session) => {
     })
 }
 
-const sessionGetBulk = (oid, session) => {
+const sessionGetBulk = (oidFromClient, session) => {
     const tempVarbinds = [];
     return new Promise((resolve, reject) => {
         const doneCb = (error) => {
             if (error) console.error(error.toString());
-            console.log(":DONE")
             resolve(tempVarbinds);
         }
 
@@ -53,13 +51,16 @@ const sessionGetBulk = (oid, session) => {
             for (var i = 0; i < varbinds.length; i++) {
                 if (snmp.isVarbindError(varbinds[i]))
                     console.error(snmp.varbindError(varbinds[i]));
-                else
+                else {
                     console.log(varbinds[i].oid + "|" + varbinds[i].value);
-                tempVarbinds.push();
+                    if (varbinds[i].type === 4) {
+                        varbinds[i].value = varbinds[i].value.toString();
+                    }
+                    tempVarbinds.push(varbinds[i]);
+                }
             }
         }
-        session.subtree(oid[0], 20, feedCb, doneCb);
-        // resolve(tempVarbinds);
+        session.subtree(oidFromClient[0], 20, feedCb, doneCb);
     })
 };
 

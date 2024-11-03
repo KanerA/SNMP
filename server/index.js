@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { getDataFromAgent, setDataOnAgent } = require("./snmpHelpers");
+const { getDataFromAgent, setDataOnAgent, getBulkDataFromAgent } = require("./snmpHelpers");
 
 const app = express();
 
@@ -26,7 +26,11 @@ app.post('/', async (req, res) => {
 });
 
 app.get('/all', async (req, res) => {
-
+    if (!req.query) return res.sendStatus(400);
+    const { oids } = req.query;
+    if (!oids?.length) return res.sendStatus(400);
+    const results = await getBulkDataFromAgent(oids);
+    res.json(results);
 });
 
 app.get('/health', (req, res) => {
