@@ -37,11 +37,10 @@ const getBulkDataFromAgent = (oids) => {
         .catch(error => error);
 };
 
-const setDataOnAgent = (data) => {
+const setDataOnAgent = async (data) => {
     const session = snmp.createV3Session("127.0.0.1", v3user, v3options);
-    return sessionSet(data, session)
-        .then(response => response)
-        .catch(error => error);
+    const results = await sessionSet(data, session);
+    return results;
 }
 
 module.exports = {

@@ -1,4 +1,4 @@
-const snmp = require("net-snmp")
+const snmp = require("net-snmp");
 
 const sessionGet = (oids, session) => {
     return new Promise((resolve, reject) => {
