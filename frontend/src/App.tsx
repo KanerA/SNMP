@@ -1,14 +1,40 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
+
+import useWebSocket from "react-use-websocket";
 
 import './App.css'
 import { IDevice } from './types/Device.t';
 import DeviceFieldLine from './components/DeviceFieldLine';
 
-const SERVER_URI = 'http://localhost:3001/all'
+const SERVER_URI = 'http://localhost:3001/all';
+const WS_URL = "ws://127.0.0.1:8080";
 
 function App() {
   const [deviceFields, setDeviceFields] = useState<IDevice[]>([]);
+
+  const { sendJsonMessage } = useWebSocket(WS_URL, {
+    onOpen: () => {
+      console.log("WebSocket connection established.");
+    },
+    onMessage: (msg) => {
+      const updatedData: IDevice[] = JSON.parse(msg.data);
+      const updatedFields = deviceFields.map((field: IDevice) => {
+        for (let i = 0; i < updatedData.length; i++) {
+          return field.oid === updatedData[i].oid
+            ? { ...field, value: updatedData[i].value }
+            : field
+        }
+      });
+      setDeviceFields(updatedFields as unknown as IDevice[])
+    },
+    share: true,
+    filter: () => false,
+    retryOnError: true,
+    shouldReconnect: () => true,
+  });
+
+
   useEffect(() => {
     const func = async () => {
       const result = await axios.get(SERVER_URI, {
