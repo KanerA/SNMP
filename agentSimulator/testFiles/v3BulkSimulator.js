@@ -1,12 +1,8 @@
 const snmp = require("net-snmp");
-const { sessionSet } = require("../../utils/v3SessionFunctions");
+const { sessionGetBulk } = require("../../utils/v3SessionFunctions");
 
-const testVarbinds = [
-    {
-        oid: "1.3.6.1.4.1.9999.1.1.0",
-        type: snmp.ObjectType.OctetString,
-        value: "afknsdgoin"
-    }
+const testOIDs = [
+    "1.3.6.1.4.1.9999.1"
 ];
 
 const options = {
@@ -31,8 +27,6 @@ const user = {
     privKey: "TestPrivKey"
 };
 
-console.log(snmp.ObjectType)
-
 const session = snmp.createV3Session("127.0.0.1", user, options);
 
-sessionSet(testVarbinds, session, snmp.isVarbindError, snmp.varbindError).then(val => console.log(val))
+sessionGetBulk(testOIDs, session).then(val => console.log("[][][][][][]", val));

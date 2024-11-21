@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f0f0f0;
+}
+
+#devicesGallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.deviceDisplayBox {
+  height: 10em;
+  border: 2px solid #2c3e50; /* Dark color: choose a deep blue/gray shade */
+  box-sizing: border-box;
+  line-height: 3em;
+  padding: 0 1em 1em 1em;
+}
